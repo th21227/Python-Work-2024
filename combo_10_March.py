@@ -271,7 +271,8 @@ def item_search():
             return
 
         # runs through everything within the nested dictionary and if
-        # there is
+        # there is the searched item, adds it to the 'msg' variable
+        # to print
         for category, combo in combo_menu.items():
             for combo, price in combo.items():
                 if search.lower() == combo.lower():
@@ -282,104 +283,136 @@ def item_search():
                     options = ["Edit Combo", "Back"]
                     
                     choice = easygui.buttonbox(msg, title, options)
-
+                    
+                    # if no response or chooses back, returns to menu
+                    # else runs 'edit_combo' variable
                     if choice == "Back" or choice is None:
                         return
                     else:
                         edit_combo()
                         return
                     
-                
+        # if item not found, continue loop until they either exit or
+        # correct information is entered
         msg = f"'{search}' not found in Combo Menu"
         title = "COMBO NOT FOUND"
         easygui.msgbox(msg, title)
 
 
-    
+# ADDING COMBO
 def add_combo():
     
+    # printing info
     msg = "What is your new combo named?"
     title = "ADD COMBO"
 
+    # textbox to enter answer
     new_combo_name = easygui.enterbox(msg, title)
 
+    # if no response, returns to menu
     if new_combo_name is None:
         return
 
+    # info for printing including previous answer
     msg = f"What is the price of '{new_combo_name}'?"
 
+    # enter new price
     new_combo_price = easygui.integerbox(msg, title)
 
+    # if no response, returns to menu
     if new_combo_price is None:
         return
 
+    # info for printing
     msg = "What category will this combo be placed?"
     options = []
 
+    # going through list and adding all categories to 'options' list
     for item in combo_menu:
         options.append(item)
 
+    # choice between categories
     new_combo_category = easygui.buttonbox(msg, title, options)
 
+    # if no response, goes to menu
     if new_combo_price is None:
         return
     
+    # info for the user to confirm adding their new combo
     msg = f"Confirm your new combo in the '{new_combo_category}' category"
     msg += f"\n{new_combo_name}: {new_combo_price}"
     title = "CONFIRM NEW COMBO"
     options = ["Confirm", "Cancel"]
     
+    # choice between confirm or cancel
     confirm = easygui.buttonbox(msg, title, options)
 
-
+    # if no input or choose cancel, return to menu
     if confirm is None or confirm == "Cancel":
         return
     else:
+        # edits the item 'new_combo_name', which doesn't exist, 
+        # therefore adding a new item equal to the chosen price
         combo_menu[new_combo_category][new_combo_name] = new_combo_price
 
+        # info for printing
         msg = "Your new combo was added!"
         title = "COMBO ADDED"
 
+        # confirmation message
         easygui.msgbox(msg, title)
 
-
+# REMOVING COMBOS
 def remove_combo():
     
+    #printing info
     msg = "Where is the combo would you like to remove?"
     title = "REMOVE COMBO"
     options = []
 
+    # adding all categories to 'options' list
     for item in combo_menu:
         options.append(item)
 
+    # choice between categories
     category_choice = easygui.buttonbox(msg, title, options)
 
+    # if no input, returns to menu
     if category_choice is None:
         return
 
+    # info for printing
     msg = "What combo would you like to remove?"
     options = []
 
+    # adds all combo names within chosen category to 'options' list
     for item in combo_menu[category_choice]:
         options.append(item)
 
+    # choice between combos within chosen category
     remove_choice = easygui.buttonbox(msg, title, options)
 
+    # if no input, returns to menu
     if remove_choice is None:
         return
 
+    # info for the user to confirm the removal of the combo
     msg = f"Confirm delete combo '{remove_choice}' from category \
 '{category_choice}'"
     title = "CONFIRM DELETE"
     options = ["Confirm", "Cancel"]
 
+    # confirmation choice
     confirm = easygui.buttonbox(msg, title, options)
 
+    # if no input or chose cancel, return to menu
     if confirm is None or confirm == "Cancel":
         return
     else:
+        # accesses category choice and removes 'remove_choice'
         combo_menu[category_choice].pop(remove_choice)
-
+        
+        # confirmation message
         msg = f"'{remove_choice}' successfully removed from \
 '{category_choice}'"
         title = "COMBO DELETED"
