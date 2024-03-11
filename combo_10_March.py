@@ -409,8 +409,8 @@ def remove_combo():
     if confirm is None or confirm == "Cancel":
         return
     else:
-        # accesses category choice and removes 'remove_choice'
-        combo_menu[category_choice].pop(remove_choice)
+        # deletes combo based on info given
+        del combo_menu[category_choice][remove_choice]
         
         # confirmation message
         msg = f"'{remove_choice}' successfully removed from \
