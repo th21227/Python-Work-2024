@@ -1,1 +1,3 @@
-print("HELLO")
+import easygui
+
+easygui.msgbox("HELLO!")
