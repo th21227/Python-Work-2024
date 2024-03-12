@@ -152,9 +152,9 @@ ${combo_menu[category_choice][combo_choice]}\
         # based on the user choice either sets the new info or 
         # returns to the combo_menu function
         if confirm == "Confirm":
-            new_price = combo_menu[category_choice][combo_choice]
+            new_combo_price = combo_menu[category_choice][combo_choice]
             del combo_menu[category_choice][combo_choice]
-            combo_menu[category_choice][new_name] = new_price
+            combo_menu[category_choice][new_name] = new_combo_price
         else:
             return
 
