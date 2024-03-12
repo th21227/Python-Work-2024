@@ -1,5 +1,8 @@
 import easygui
 
+MAX_PRICE = 10
+MIN_PRICE = 1
+
 # nested dictionary to store the combos
 combo_menu = {
     "Value": {
@@ -160,7 +163,8 @@ ${combo_menu[category_choice][combo_choice]}\
         msg = f"Enter new price for {combo_choice}"
         title = "NEW PRICE"
 
-        new_price = easygui.integerbox(msg, title)
+        new_price = easygui.integerbox(msg, title,
+                upperbound=MAX_PRICE, lowerbound=MIN_PRICE)
 
         # makes user confirm that they want to edit w/ this info
         # includes all new info + old info for comparison
@@ -317,7 +321,8 @@ def add_combo():
     msg = f"What is the price of '{new_combo_name}'?"
 
     # enter new price
-    new_combo_price = easygui.integerbox(msg, title)
+    new_combo_price = easygui.integerbox(msg, title, 
+                            upperbound=MAX_PRICE, lowerbound=MIN_PRICE)
 
     # if no response, returns to menu
     if new_combo_price is None:
