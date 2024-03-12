@@ -420,5 +420,5 @@ def remove_combo():
         easygui.msgbox(msg, title)
 
 
-
+# runs main function after defining all other functions
 main_menu()
